@@ -6,6 +6,7 @@ import { characters } from "./characters.js";
 renderCharacterListToHTML();
 setupSearchButton();
 setupCauseAnErrorButton();
+setupRandomCharacterButton();
 
 function renderCharacterListToHTML() {
     const characterLiElements = makeLiElementsForCharacters();
@@ -25,7 +26,7 @@ function createOneLiElementForCharacter(character) {
     element.innerHTML = character.name + " from " + character.book;
 
     element.addEventListener("click", () => {
-        alert(character.powers.join(", "));
+        alert(character.name.toUpperCase()+ ": " + character.powers.join(", ").toUpperCase());
     });
     element.addEventListener("mouseover", () => {
         focusedCharacterParagraph.innerText =
@@ -61,6 +62,21 @@ function setupCauseAnErrorButton() {
     const myButton = document.getElementById("causeAnErrorButton");
     myButton.addEventListener("click", screwUpIntentionally);
 }
+
+function setupRandomCharacterButton() {
+    const myButton = document.getElementById("randomCharacterButton");
+    myButton.addEventListener("click", displayRandomCharacter);
+}
+
+function displayRandomCharacter() {
+    const character = getRandomItem(characters)
+    alert(character.name.toUpperCase()+ ": " + character.powers.join(", ").toUpperCase());
+}
+
+function getRandomItem(arr) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+  }
 
 function screwUpIntentionally() {
     console.log("i am about to cause an error");
